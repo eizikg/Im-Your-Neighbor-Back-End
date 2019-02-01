@@ -5,9 +5,21 @@ class Volounteer < ApplicationRecord
 
   validates :username,
           presence: true,
-          uniqueness: true
+          uniqueness: { case_sensitive: false }
 
-validates :password,
-          presence: true
+  validates :password,
+            presence: true
+
+
+  def authenticate(plaintext_password)
+    if BCrypt::Password.new(self.password_digest) == plaintext_password
+      self
+    else
+      false
+    end
+  end 
+
+
+
 
 end

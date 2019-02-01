@@ -3,6 +3,7 @@ module Api
   module V1
 
     class GroupsController < ApplicationController
+      skip_before_action :authorized, only: [:create]
 
       def index
          render json: Group.all
