@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  provider_id: 
+  event_id: 1
+  belongs_to: 
+  belongs_to: 
+
+two:
+  provider_id: 
+  event_id: 1
+  belongs_to: 
+  belongs_to: 
