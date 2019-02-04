@@ -1,3 +1,3 @@
 class Neighborhood < ApplicationRecord
-  has_many :groups 
+  belongs_to :volounteer 
 end

@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_31_162929) do
+ActiveRecord::Schema.define(version: 2019_02_04_143005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "event_volounteers", force: :cascade do |t|
+    t.integer "group_id"
+    t.integer "event_id"
+    t.integer "volounteer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.boolean "active"
+    t.string "description"
+    t.integer "category_id"
+    t.integer "volounteers_required"
+    t.integer "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "group_volounteers", force: :cascade do |t|
     t.integer "volounteer_id"
@@ -26,7 +44,6 @@ ActiveRecord::Schema.define(version: 2019_01_31_162929) do
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.integer "neighborhood_id"
     t.integer "catagory_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -49,6 +66,7 @@ ActiveRecord::Schema.define(version: 2019_01_31_162929) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "neighborhood_id"
   end
 
 end

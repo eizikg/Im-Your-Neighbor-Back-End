@@ -5,11 +5,16 @@ Rails.application.routes.draw do
 
   # resources :volounteers, only: [:index, :create, :destroy, :update, :show]
   # resources :events, only: [:index, :create, :destroy, :update, :show]
-  resources :groups  do
-    resources :volounteers, only: [:index, :create, :destroy, :update, :show]
-    end
+  resources :groups,  only: [:index, :create, :destroy, :update, :show]
 
-    resources :volounteers, only: [:index, :create, :destroy, :update, :show]
+    # resources :volounteers, only: [:index, :destroy, :update, :show]
+    resources :volounteers, only: :create do
+    collection do
+      post 'confirm'
+      post 'login'
+    end
+end
+resources :volounteers, only: [:index, :create, :destroy, :update, :show]
   end
 end
 

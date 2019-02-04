@@ -1,4 +1,4 @@
 class Event < ApplicationRecord
-  has_many :event_providers
-  has_many :providers, :through => :event_providers
+  belongs_to :group
+  has_many :event_volounteers
 end
