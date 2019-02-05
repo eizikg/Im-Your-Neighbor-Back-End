@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_04_143005) do
+ActiveRecord::Schema.define(version: 2019_02_04_221710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(version: 2019_02_04_143005) do
   create_table "group_volounteers", force: :cascade do |t|
     t.integer "volounteer_id"
     t.integer "group_id"
-    t.boolean "is_admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_admin", default: false
   end
 
   create_table "groups", force: :cascade do |t|

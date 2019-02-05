@@ -6,21 +6,30 @@ module Api
       # skip_before_action :authorized, only: [:create]
 
       def index
-         render json: Group.all
+        @group=Group.all
+         render json: Group.all, each_serializer: GroupAllSerializer
       end
 
       def create
       end
 
       def update
+        @user=Volounteer.find(params[:id])
+        @user.update(group_params)
       end
 
       def show
-       render json: Group.where(id: params["id"])
+       render json: Group.where(id: params["id"]), each_serializer: GroupSerializer
       end
 
       def destroy
       end
+
+      private
+
+        def group_params
+          params.require(:group).permit(:id, :description, :category_id)
+        end
 
     end
   end

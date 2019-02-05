@@ -3,8 +3,10 @@ class GroupSerializer < ActiveModel::Serializer
   def volounteers
     self.object.volounteers.map do |volounteer|
       {first_name: volounteer.first_name,
+       id: volounteer.id,
        last_name: volounteer.last_name,
-       username: volounteer.username
+       username: volounteer.username,
+       is_admin: volounteer.group_volounteers.where(group_id: self.object.id)[0].is_admin 
      }
      end
     end

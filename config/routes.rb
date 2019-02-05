@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   # resources :volounteers, only: [:index, :create, :destroy, :update, :show]
   # resources :events, only: [:index, :create, :destroy, :update, :show]
+  resources :events
   resources :groups,  only: [:index, :create, :destroy, :update, :show]
 
     # resources :volounteers, only: [:index, :destroy, :update, :show]
