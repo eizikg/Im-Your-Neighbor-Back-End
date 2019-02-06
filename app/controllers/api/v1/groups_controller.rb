@@ -4,6 +4,8 @@ module Api
 
     class GroupsController < ApplicationController
       # skip_before_action :authorized, only: [:create]
+      before_action :authenticate_request!
+      skip_before_action :authenticate_request!, only: [:index, :create]
 
       def index
         @group=Group.all
@@ -11,11 +13,15 @@ module Api
       end
 
       def create
+        @group= Group.create(group_params[:description], group_params[:category_id])
+        Group_volounteers.create(group_id: @group, volounteer_id: group_params[:volounteer_id], is_admin: true)
+        render json: @group
       end
 
       def update
-        @user=Volounteer.find(params[:id])
-        @user.update(group_params)
+        @group=Group.find(params[:id])
+        @group.update(group_params)
+        render json: @group
       end
 
       def show
@@ -23,12 +29,14 @@ module Api
       end
 
       def destroy
+        @group=Group.find(params[:id])
+        render json: @group.destroy
       end
 
       private
 
         def group_params
-          params.require(:group).permit(:id, :description, :category_id)
+          params.require(:group).permit(:id, :description, :category_id, :volounteer_id)
         end
 
     end

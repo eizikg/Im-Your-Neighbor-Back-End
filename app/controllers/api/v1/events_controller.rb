@@ -7,10 +7,11 @@ module Api
       before_action :authenticate_request!
 
 
-      def index
-        event = Event.all
 
-         render json: event
+      def index
+        @event = Event.all
+
+         render json: @event
       end
 
 
