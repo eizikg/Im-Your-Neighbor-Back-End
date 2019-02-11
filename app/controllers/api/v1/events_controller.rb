@@ -4,7 +4,7 @@ module Api
 
     class EventsController < ApplicationController
       # skip_before_action :authorized, only: [:create]
-      before_action :authenticate_request!
+      # before_action :authenticate_request!
 
 
 
