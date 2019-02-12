@@ -7,6 +7,8 @@ gem 'pry'
 gem 'rails', '~> 5.2.2'
 gem 'geokit-rails'
 # Use postgres as the database for Active Record
+gem 'geokit-rails'
+gem 'faker'
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'

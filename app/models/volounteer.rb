@@ -1,5 +1,6 @@
 class Volounteer < ApplicationRecord
   has_secure_password
+  acts_as_mappable
   has_many :group_volounteers
   has_many :groups, through: :group_volounteers
   has_one :neighborhood

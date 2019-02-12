@@ -26,7 +26,7 @@ module Api
       end
 
       def show
-        # binding.pry
+        binding.pry
        render json: Group.where(id: params["id"]), each_serializer: GroupSerializer
        # Group.where(id: params["id"], joins: [GroupVolounteer, Volounteer])
       end

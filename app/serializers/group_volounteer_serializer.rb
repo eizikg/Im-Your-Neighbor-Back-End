@@ -1,9 +1,12 @@
 class GroupVolounteerSerializer < ActiveModel::Serializer
-  attributes :is_admin, :volounteer
+  attributes :volounteer
   def volounteer
+    volounteer = self.object.volounteer
     {first_name: volounteer.first_name,
-    id: volounteer.id,
     last_name: volounteer.last_name,
-    username: volounteer.username}
+    email: volounteer.email,
+    id: volounteer.id,
+    is_admin: self.object.is_admin
+    }
   end
 end

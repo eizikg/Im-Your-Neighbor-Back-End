@@ -1,6 +1,6 @@
 class GroupSerializer < ActiveModel::Serializer
   attributes :id, :name, :description, :group_volounteers, :events
-  has_many :group_volounteers, serializer: GroupVolounteerSerializer
+  has_many :group_volounteers , serializer: GroupVolounteerSerializer
   # has_many :volounteers, serializer: VolounteerSerializer
 
   # def volounteers
