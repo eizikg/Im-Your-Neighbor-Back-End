@@ -14,7 +14,11 @@ module Api
 
       def create
         # binding.pry
-        @group= Group.create(group_params)
+        this_params = group_params
+        @volounteer = Volounteer.find(params[:volounteer_id])
+        this_params[lat]=@volounteer.lat
+        this_params[lng]=@volounteer.lng
+        @group= Group.new(this_params)
         GroupVolounteer.create(group_id: @group.id, volounteer_id: params[:volounteer_id], is_admin: true)
         render json: @group
       end
@@ -26,7 +30,7 @@ module Api
       end
 
       def show
-        binding.pry
+        # binding.pry
        render json: Group.where(id: params["id"]), each_serializer: GroupSerializer
        # Group.where(id: params["id"], joins: [GroupVolounteer, Volounteer])
       end

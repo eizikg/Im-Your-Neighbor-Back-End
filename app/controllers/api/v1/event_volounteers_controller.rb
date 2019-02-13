@@ -3,8 +3,11 @@ module Api
 
 
     class EventVolounteersController < ApplicationController
-        before_action :authenticate_request!
+        # before_action :authenticate_request!
       def index
+        # binding.pry
+        @event_volounteer = EventVolounteer.all
+        render json: @event_volounteer
       end
 
       def show
@@ -18,6 +21,7 @@ module Api
       end
 
       def create
+        # binding.pry
         if validate_uniqueness
           @event_volounteer = EventVolounteer.create(event_volounteers_params)
 

@@ -18,7 +18,8 @@ module Api
       def create
         # binding.pry
        @event = Event.create(event_params)
-       if validate_admin && @event.save
+       # if validate_admin && @event.save
+       if @event.save
          # binding.pry
          render json: @event
        else
@@ -57,7 +58,7 @@ module Api
        is_admin = current_group.select do |volounteer|
          volounteer.id == @current_user.id
        end
-       binding.pry
+       # binding.pry
        if !is_admin.empty?
          return is_admin[0].is_admin
        else

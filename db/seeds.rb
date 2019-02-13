@@ -23,20 +23,19 @@ include Faker
 # event4 = Event.create(active: true, description: "plow the snow", group_id: 1)
 # event5 = Event.create(active: true, description: "i have a flat", group_id: 1)
 # event6 = Event.create(active: true, description: "im locked out of my appartment", group_id: 1)
-# 10.times do
-#   GroupVolounteer.create(
-#     first_name: Faker::Name.first_name,
-#     last_name: Faker::Name.last_name,
-#     email: Faker::Internet.email,
-#     lng: rand(-0.000006)+40.7006158,
-#     lat: rand(-0.000006)-73.98755229999999,
-#     password: "1234"
-#     group_id :Faker::Number.unique.number()
-#   )
-# end
-
-50.times do
-  group_id = rand(5)
-  volounteer_id = rand(245..300)
-  GroupVolounteer.create(group_id: group_id, volounteer_id: volounteer_id)
+10.times do
+  Volounteer.create(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    email: Faker::Internet.email,
+    lat: rand(-0.0000000000006)+41.1180516,
+    lng: rand(-0.0000000000006)-74.05122919999997,
+    password: "1234"
+  )
 end
+
+# 10.times do
+#   group_id = rand(5)
+#   volounteer_id = rand(245..300)
+#   GroupVolounteer.create(group_id: group_id, volounteer_id: volounteer_id)
+# end

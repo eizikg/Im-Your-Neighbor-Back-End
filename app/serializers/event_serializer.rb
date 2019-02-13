@@ -3,8 +3,9 @@ class EventSerializer < ActiveModel::Serializer
   attributes :id, :description, :group_id, :volounteers, :required, :count
 
   def  volounteers
-    # binding.pry
-      self.object.event_volounteers.map do |event_volounteer|
+     event_volounteers = self.object.event_volounteers
+     # binding.pry
+      event_volounteers.map do |event_volounteer|
         volounteer= Volounteer.find_by_id(event_volounteer.volounteer_id)
       {
        id: volounteer.id,

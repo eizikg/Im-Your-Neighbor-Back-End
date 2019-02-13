@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2019_02_11_231556) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.boolean "active"
+    t.boolean "active", default: false
     t.string "description"
     t.integer "category_id"
     t.integer "volounteers_required"

@@ -7,7 +7,7 @@ module Api
         # before_action :authenticate_request!
 
       def create
-        binding.pry
+        # binding.pry
         if validate_uniqueness
           @group_volounteer = GroupVolounteer.create(event_volounteers_params)
           render json: @group_volounteer
