@@ -1,7 +1,7 @@
 require 'pry'
 class Event < ApplicationRecord
   belongs_to :group
-  has_many :event_volounteers
+  has_many :event_volounteers, dependent: :destroy
 
   # validate :is_admin
 

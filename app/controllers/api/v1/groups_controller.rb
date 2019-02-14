@@ -13,14 +13,15 @@ module Api
       end
 
       def create
-        # binding.pry
         this_params = group_params
         @volounteer = Volounteer.find(params[:volounteer_id])
-        this_params[lat]=@volounteer.lat
-        this_params[lng]=@volounteer.lng
-        @group= Group.new(this_params)
+        this_params['lat']=@volounteer.lat
+        this_params['lng']=@volounteer.lng
+        binding.pry
+        @group= Group.create(this_params)
         GroupVolounteer.create(group_id: @group.id, volounteer_id: params[:volounteer_id], is_admin: true)
-        render json: @group
+        # @group.save
+        render json: @group, serializer: GroupAllSerializer
       end
 
       def update

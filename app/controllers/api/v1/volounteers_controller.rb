@@ -25,11 +25,9 @@ module Api
         # binding.pry
        @user = Volounteer.create(user_params)
        if @user.save
-         # binding.pry
          user_data = VolounteerSerializer.new(@user)
          auth_token = JsonWebToken.encode({user_id: @user.id})
          render json: {user: user_data, auth_token: auth_token}
-         # {status: :created, auth_token: auth_token}
        else
          render json: { errors: @user.errors.full_messages }, status: :bad_request
        end
