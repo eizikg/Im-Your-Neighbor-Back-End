@@ -7,18 +7,19 @@ class Volounteer < ApplicationRecord
 
 
 
-  before_save :downcase_email
+  # before_save :downcase_email
 
   validates :email,
           presence: true,
-          uniqueness: { case_sensitive: false } , on: :create
+          uniqueness: true
+          # { case_sensitive: false } , on: :create
 
   validates :password,
             presence: true, on: :create
 
-  def downcase_email
-    self.email = self.email.delete(' ').downcase
-  end
+  # def downcase_email
+  #   self.email = self.email.delete(' ')
+  # end
 
 
 end

@@ -17,8 +17,9 @@ module Api
       # end
 
       def profile
-        @user= Volounteer.find(@current_user.id)
-        render json: @user
+        # binding.pry
+        # @user= Volounteer.find(@current_user.id)
+        render json: Volounteer.find(@current_user.id)
       end
 
       def create

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get '/location/volounteers', to: 'locations#volounteers'
   get '/location/groups', to: 'locations#groups'
+  
 
     # resources :volounteers, only: [:index, :destroy, :update, :show]
     resources :volounteers, only: :create do

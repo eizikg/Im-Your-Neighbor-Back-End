@@ -17,7 +17,7 @@ module Api
         @volounteer = Volounteer.find(params[:volounteer_id])
         this_params['lat']=@volounteer.lat
         this_params['lng']=@volounteer.lng
-        binding.pry
+        # binding.pry
         @group= Group.create(this_params)
         GroupVolounteer.create(group_id: @group.id, volounteer_id: params[:volounteer_id], is_admin: true)
         # @group.save
