@@ -20,7 +20,7 @@ module Api
           geoLocation = [params[:location][:lat], params[:location][:lng]]
           # binding.pry
           if !@current_user.address
-            binding.pry
+            # binding.pry
           @current_user.update(lat: params[:location][:lat], lng: params[:location][:lng], address: params[:address], neighborhood: params[:neighborhood])
           end
           @groups = Group.within(5, :origin => geoLocation)

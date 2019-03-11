@@ -1,4 +1,5 @@
 require 'faker'
+require 'chatkit'
 include Faker
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
@@ -23,15 +24,23 @@ include Faker
 # event4 = Event.create(active: true, description: "plow the snow", group_id: 1)
 # event5 = Event.create(active: true, description: "i have a flat", group_id: 1)
 # event6 = Event.create(active: true, description: "im locked out of my appartment", group_id: 1)
+chatkit = Chatkit::Client.new({
+  instance_locator: 'v1:us1:411b0598-90f0-462c-9c5e-7700603c4122',
+  key: 'dabd03b3-b4d0-472d-9ebd-df69eac61ef7:VgvPufaNN+RnU0216cU9eZX+TCLDHl1rzi0D+lmC3SA=',
+  })
 10.times do
-  Volounteer.create(
+  @user = Volounteer.create(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     email: Faker::Internet.email,
     lat: rand(-0.0000000000006)+41.1180516,
     lng: rand(-0.0000000000006)-74.05122919999997,
-    password: "1234"
+    password: "1234",
+    neighborhood: "Lower Manhatten"
   )
+  if @user.save
+  chatkit.create_user({ id: @user.email, name: "#{@user.first_name} #{@user.last_name}" })
+  end
 end
 
 # 10.times do
