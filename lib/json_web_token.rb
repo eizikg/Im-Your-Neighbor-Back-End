@@ -4,7 +4,7 @@ class JsonWebToken
   # Encodes and signs JWT Payload with expiration
   def self.encode(payload)
     payload.reverse_merge!(meta)
-    JWT.encode(payload, HelpProviders::Application.credentials.secret_key_base)
+    JWT.encode(payload, "hello world")
   end
 
   # Decodes the JWT with the signed secret
