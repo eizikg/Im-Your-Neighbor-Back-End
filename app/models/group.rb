@@ -4,4 +4,8 @@ class Group < ApplicationRecord
   has_many :volounteers, through: :group_volounteers
   has_many :events, dependent: :destroy
 
+
+  validates :name,
+          uniqueness: true
+
 end

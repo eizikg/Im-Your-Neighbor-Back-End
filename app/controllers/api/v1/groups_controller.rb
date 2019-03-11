@@ -1,4 +1,5 @@
 require 'pry'
+require 'chatkit'
 module Api
   module V1
 
@@ -13,16 +14,32 @@ module Api
       end
 
       def create
-        this_params = group_params
         @volounteer = Volounteer.find(params[:volounteer_id])
-        this_params['lat']=@volounteer.lat
-        this_params['lng']=@volounteer.lng
+        new_params = group_params
+        new_params['lat']=@volounteer.lat
+        new_params['lng']=@volounteer.lng
+        new_params['neighborhood']=@volounteer.neighborhood
+        @group= Group.create(new_params)
         # binding.pry
-        @group= Group.create(this_params)
+        if @group.save
+        chatkit = Chatkit::Client.new({
+          instance_locator: 'v1:us1:411b0598-90f0-462c-9c5e-7700603c4122',
+          key: 'dabd03b3-b4d0-472d-9ebd-df69eac61ef7:VgvPufaNN+RnU0216cU9eZX+TCLDHl1rzi0D+lmC3SA=',
+          })
+        # create new chatkit room
+         newRoom = chatkit.create_room({
+          creator_id: @volounteer.email,
+          name: @group.name,
+          private: false
+          })
+          # binding.pry
+        @group.update(room_id: newRoom[:body][:id])
         GroupVolounteer.create(group_id: @group.id, volounteer_id: params[:volounteer_id], is_admin: true)
-        # @group.save
-        render json: @group, serializer: GroupAllSerializer
+          render json: @group, serializer: GroupAllSerializer
+        else
+          render json: { errors: @group.errors.full_messages }, status: :bad_request
       end
+    end
 
       def update
         @group=Group.find(params[:id])
@@ -32,7 +49,8 @@ module Api
 
       def show
         # binding.pry
-       render json: Group.where(id: params["id"]), each_serializer: GroupSerializer
+       @groups = Group.where(id: params["id"])
+       render json: @groups, each_serializer: GroupSerializer
        # Group.where(id: params["id"], joins: [GroupVolounteer, Volounteer])
       end
 
@@ -44,7 +62,7 @@ module Api
       private
 
         def group_params
-          params.permit(:id, :description, :name, :category_id)
+          params.permit(:id, :description, :name, :category_id, :neighborhood, :address)
         end
 
     end

@@ -59,6 +59,7 @@ GEM
     concurrent-ruby (1.1.4)
     crass (1.0.4)
     erubi (1.8.0)
+    excon (0.62.0)
     faker (1.9.2)
       i18n (>= 0.7)
     ffi (1.10.0)
@@ -99,6 +100,11 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     puma (3.12.0)
+    pusher-chatkit-server (1.2.0)
+      pusher-platform (~> 0.11.2)
+    pusher-platform (0.11.2)
+      excon (~> 0.62.0)
+      jwt (~> 2.1)
     rack (2.0.6)
     rack-cors (1.0.2)
     rack-test (1.1.0)
@@ -168,6 +174,7 @@ DEPENDENCIES
   pg
   pry
   puma (~> 3.11)
+  pusher-chatkit-server
   rack-cors
   rails (~> 5.2.2)
   spring

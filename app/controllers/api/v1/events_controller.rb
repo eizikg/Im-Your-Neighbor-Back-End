@@ -4,7 +4,7 @@ module Api
 
     class EventsController < ApplicationController
       # skip_before_action :authorized, only: [:create]
-      # before_action :authenticate_request!
+      before_action :authenticate_request!, only: [:update]
 
 
 
@@ -29,7 +29,8 @@ module Api
 
 
       def update
-        @event=Volounteer.find(params[:id])
+        # binding.pry
+        @event=Event.find(params[:id])
         @event.update(event_params)
         if validate_admin && @event.save
           # binding.pry
@@ -53,21 +54,20 @@ module Api
     private
 
      def validate_admin
-       # binding.pry
        current_group = Group.find(event_params[:group_id]).volounteers
        is_admin = current_group.select do |volounteer|
+         # binding.pry
          volounteer.id == @current_user.id
        end
-       # binding.pry
        if !is_admin.empty?
-         return is_admin[0].is_admin
+         return true
        else
          return false
        end
      end
 
       def event_params
-        params.permit(:description, :id, :active, :category_id, :group_id)
+        params.permit(:description, :id, :active, :category_id, :group_id, :address, :lng, :lat, :volounteers_required)
       end
 
     end

@@ -10,9 +10,9 @@ Rails.application.routes.draw do
   resources :event_volounteers
   resources :group_volounteers, only: [:create, :update]
 
-  get '/location/volounteers', to: 'locations#volounteers'
-  get '/location/groups', to: 'locations#groups'
-  
+  patch '/location/volounteers', to: 'locations#volounteers'
+  patch '/location/groups', to: 'locations#groupsLocation'
+
 
     # resources :volounteers, only: [:index, :destroy, :update, :show]
     resources :volounteers, only: :create do
