@@ -9,7 +9,7 @@ class JsonWebToken
 
   # Decodes the JWT with the signed secret
   def self.decode(token)
-    JWT.decode(token, HelpProviders::Application.credentials.secret_key_base)
+    JWT.decode(token, "hello world")
   end
 
   # Validates the payload hash for expiration and meta claims
