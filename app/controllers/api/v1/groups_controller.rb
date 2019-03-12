@@ -6,7 +6,7 @@ module Api
     class GroupsController < ApplicationController
       # skip_before_action :authorized, only: [:create]
       before_action :authenticate_request!
-      skip_before_action :authenticate_request!, only: [:index, :create, :show]
+      skip_before_action :authenticate_request!, only: [:index, :show]
 
       def index
         @group=Group.all
@@ -14,11 +14,10 @@ module Api
       end
 
       def create
-        @volounteer = Volounteer.find(params[:volounteer_id])
         new_params = group_params
-        new_params['lat']=@volounteer.lat
-        new_params['lng']=@volounteer.lng
-        new_params['neighborhood']=@volounteer.neighborhood
+        new_params['lat']=@current_user.lat
+        new_params['lng']=@current_user.lng
+        new_params['neighborhood']=@current_user.neighborhood
         @group= Group.create(new_params)
         # binding.pry
         if @group.save
@@ -28,13 +27,13 @@ module Api
           })
         # create new chatkit room
          newRoom = chatkit.create_room({
-          creator_id: @volounteer.email,
-          name: @group.name,
+          creator_id: @current_user.email,
+          name: @group.id.to_s,
           private: false
           })
           # binding.pry
         @group.update(room_id: newRoom[:body][:id])
-        GroupVolounteer.create(group_id: @group.id, volounteer_id: params[:volounteer_id], is_admin: true)
+        GroupVolounteer.create(group_id: @group.id, volounteer_id: @current_user.id, is_admin: true)
           render json: @group, serializer: GroupAllSerializer
         else
           render json: { errors: @group.errors.full_messages }, status: :bad_request
