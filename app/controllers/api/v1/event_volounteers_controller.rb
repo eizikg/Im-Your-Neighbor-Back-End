@@ -4,24 +4,13 @@ module Api
 
     class EventVolounteersController < ApplicationController
         # before_action :authenticate_request!
+
       def index
-        # binding.pry
         @event_volounteer = EventVolounteer.all
         render json: @event_volounteer
       end
 
-      def show
-        @event_volounteer = EventVolounteer.where(volounteer_id: event_volounteers_params[volounteer_id])
-      end
-
-      def update
-      end
-
-      def destroy
-      end
-
       def create
-        # binding.pry
         if validate_uniqueness
           @event_volounteer = EventVolounteer.create(event_volounteers_params)
            if @event_volounteer.save
@@ -37,17 +26,14 @@ module Api
       private
 
       def validate_uniqueness
-        # binding.pry
         event = Event.find_by_id(params[:event_id])
-        exists = event.event_volounteers.select do |volounteer|
-          # binding.pry
+        exists = event.event_volounteers.find do |volounteer|
           volounteer.volounteer_id == params[:volounteer_id]
         end
-          if exists.empty?
-            return true
-          else
-            return false
-          end
+        if exists.empty?
+          return true
+        end
+        false
       end
 
       def event_volounteers_params

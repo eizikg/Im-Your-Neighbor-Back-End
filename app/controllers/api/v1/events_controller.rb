@@ -10,30 +10,24 @@ module Api
 
       def index
         @event = Event.all
-
-         render json: @event
+        render json: @event
       end
 
 
       def create
-        # binding.pry
-       @event = Event.create(event_params)
-       # if validate_admin && @event.save
-       if @event.save
-         # binding.pry
-         render json: @event
-       else
-         render json: { errors: "failed" }, status: :bad_request
-       end
+        @event = Event.create(event_params)
+         if @event.save
+           render json: @event
+         else
+           render json: { errors: "failed" }, status: :bad_request
+         end
       end
 
 
       def update
-        # binding.pry
         @event=Event.find(params[:id])
         @event.update(event_params)
         if validate_admin && @event.save
-          # binding.pry
           render json: @event
         else
           render json: { errors: "failed" }, status: :bad_request
@@ -41,7 +35,6 @@ module Api
       end
 
       def show
-        # binding.pry
         render json: Event.find(params[:id])
       end
 
@@ -55,15 +48,13 @@ module Api
 
      def validate_admin
        current_group = Group.find(event_params[:group_id]).volounteers
-       is_admin = current_group.select do |volounteer|
-         # binding.pry
+       is_admin = current_group.find do |volounteer|
          volounteer.id == @current_user.id
        end
        if !is_admin.empty?
          return true
-       else
-         return false
        end
+       false
      end
 
       def event_params
