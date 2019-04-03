@@ -27,7 +27,7 @@ module Api
 
       def validate_uniqueness
         event = Event.find_by_id(params[:event_id])
-        exists = event.event_volounteers.find do |volounteer|
+        exists = event.event_volounteers.select do |volounteer|
           volounteer.volounteer_id == params[:volounteer_id]
         end
         if exists.empty?
